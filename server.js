@@ -8,6 +8,9 @@ dotenv.config()
 
 //routes
 const authRouter = require("./src/router/authRouter")
+const userRouter = require("./src/router/userRouter")
+const chatRouter = require("./src/router/chatRouter")
+const messageRouter = require("./src/router/messageRouter")
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -17,13 +20,16 @@ app.use(express.static(path.join(__dirname, "src", "public")))
 //middleWare
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(fileupload({useTempFiles: true}))
+app.use(fileupload())
 app.use(cors())
 
 
 
 //use routes
 app.use('/api/auth', authRouter)
+app.use('/api/user', userRouter)
+app.use('/api/chat', chatRouter)
+app.use('/api/message', messageRouter)
 
 const MONGO_URL = process.env.MONGO_URL;
 
